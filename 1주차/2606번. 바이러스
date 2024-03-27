@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, t, a, b, ret = -1, visited[104];
+vector<int> v[104]; // 각 정점마다 연결된 정점을 담을 벡터
+
+void dfs(int s){
+    visited[s] = 1; // 방문 표시
+    ret++; // 컴퓨터수 1증가(컴퓨터1은 제외 = -1부터 시작)
+    for(int it : v[s]){ 
+        if(!visited[it]) // 방문 안 했다면
+            dfs(it); // 현재 정점과 연결된 정점 방문
+    }
+}
+
+int main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    cin >> n >> t;
+    while(t--){
+        cin >> a >> b;
+        v[a].push_back(b); // 무방향 그래프 연결
+        v[b].push_back(a);
+    }
+    dfs(1); // 1에서부터 dfs 수행
+    cout << ret; // 1과 연결된 컴퓨터수 출력
+    return 0;
+}
