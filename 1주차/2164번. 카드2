@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n;
+deque<int> q;
+
+int main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    cin >> n;
+    for(int i = 1; i <= n; i++) q.push_back(i);
+    while(q.size() > 1){    // 큐에 마지막 원소가 남을 때까지
+        q.pop_front(); // 1. 맨 앞장 버리기
+        int tmp = q.front(); // 2. 그 다음 앞장 꺼내기
+        q.pop_front();
+        q.push_back(tmp); // 3. 꺼낸 카드 뒤로 보내기
+    }
+    cout << q.front(); // 마지막 남은 카드 출력
+    return 0;
+}
