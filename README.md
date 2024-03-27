@@ -1,1 +1,1 @@
-# SWaD 동아리 코딩테스트 대비
+<h3>SWaD_Coding Test Team</h3>
