@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int cnt, a[300004]; // B의 사용 여부를 저장할 배열
+string s;
+queue<int> q; // 먼저 들어온 B를 사용
+
+int main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    cin >> s;
+    for(int i = 0; i < s.size(); i++){ // BC쌍 카운트
+        if(s[i] == 'B') q.push(i); // B면 큐에 저장
+        else if(s[i] == 'C'){
+            if(q.size()){ // C일때 앞서 저장한 B가 있다면
+                a[q.front()] = 1; // 그 B를 사용했다고 표시
+                q.pop(); // 사용한 B는 큐에서 제거
+                cnt++; // BC 카운트 1증가
+            }
+        }
+    }
+    while(q.size()) q.pop(); // 큐 clear
+    for(int i = 0; i < s.size(); i++){ // AB쌍 카운트
+        if(s[i] == 'A') q.push(i); // A면 큐에 저장
+        else if(s[i] == 'B'){ // B일때 앞서 저장한 A가 있고
+            if(q.size() && !a[i]){ // B가 사용하지 않은 B라면
+                q.pop(); // A 하나 제거해주고
+                cnt++; // AB 카운트 1증가
+            }
+        }
+    }
+    cout << cnt; // 최대 횟수 출력
+    return 0;
+}
