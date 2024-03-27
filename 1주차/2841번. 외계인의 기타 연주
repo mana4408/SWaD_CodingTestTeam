@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, p, a, b, ret = 0;
+stack<int> s[7]; // 기타줄별로 스택 관리
+
+int main(){
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    cin >> n >> p; // 음의 수, 프렛의 수 입력
+    while(n--){
+        cin >> a >> b;
+        // 해당 줄 스택이 비거나 최상단 프렛이 입력값보다 작으면
+        if(!s[a].size() || s[a].top() < b){
+            s[a].push(b); // 그대로 입력값 스택에 push
+            ret++; // 움직임 1증가
+        } else { // 그렇지 않고 손가락을 떼야한다면
+            // 스택이 비거나 스택의 프렛 값이 입력값보다 작을 때까지
+            while(s[a].size() && s[a].top() > b){
+                s[a].pop(); // pop 실행
+                ret++; // 움직임도 1증가
+            }
+            // 입력값이 스택 최상단 값이랑 같은 경우를 제외하고
+            if(!s[a].size() || s[a].top() < b){
+                s[a].push(b); // 스택에 push
+                ret++; // 움직임 1증가
+            }
+        }
+    }
+    cout << ret; // 총 움직임 출력
+    return 0;
+}
