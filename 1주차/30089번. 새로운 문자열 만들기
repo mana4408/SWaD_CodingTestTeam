@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int t, i, j, idx, flag;
+string s, rev, ret;
+
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin >> t;
+    while(t--){
+        cin >> s;
+        rev = s;
+        ret = s;
+        // 뒤집은 문자열 준비
+        reverse(rev.begin(), rev.end());
+        for(i = 0; i < s.size(); i++){ // 문자열에서
+            if(s[i] == rev[0]){ // 뒤집은 문자열과 반복되는 곳이 있다면
+                flag = 1;
+                for(j = i + 1, idx = 1; j < s.size(); j++, idx++){
+                    if(s[j] != rev[idx]){ // 대신 문자열 끝까지 동일해야 함
+                        flag = 0;
+                        break;
+                    }
+                }
+                if(flag){ // 반복되는 부분을 제외하고
+                    for(int st = s.size() - i; st < rev.size(); st++)
+                        ret.push_back(rev[st]); // 나머지 문자열만 붙이기
+                    break;
+                }
+            }
+        }
+        cout << ret << "\n"; // 결과 출력
+    }
+    return 0;
+}
